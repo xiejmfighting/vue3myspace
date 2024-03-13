@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <router-link class="nav-link active" aria-current="page" :to="{name:'home',params:{}}">首页</router-link>
+          <router-link class="nav-link active"  :to="{name:'home',params:{}}">首页</router-link>
         </li>
         <li class="nav-item">
           <router-link class="nav-link" :to="{name:'userlist',params:{}}">好友列表</router-link>
@@ -17,9 +17,9 @@
           <router-link class="nav-link" :to="{name:'userprofile',params:{}}">用户动态</router-link>
         </li>
       </ul>
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav ">
         <li class="nav-item">
-          <router-link class="nav-link active" aria-current="page" :to="{name:'login',params:{}}">登录</router-link>
+          <router-link class="nav-link active" :to="{name:'login',params:{}}">登录</router-link>
         </li>
         <li class="nav-item">
           <router-link class="nav-link" :to="{name:'register',params:{}}">注册</router-link>
