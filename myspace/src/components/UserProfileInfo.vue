@@ -2,12 +2,12 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <div class="col-4">
-                  <img class="img-fluid" src="https://cdn.acwing.com/media/user/profile/photo/123273_lg_b26f0a3434.png" alt="">
+                <div class="col-4 img-fluid">
+                  <img class="img-fluid" :src="user.photo" alt="">
                 </div>
                 <div class="col-8">
-                    <div class="name">{{ fullName }}</div>
-                    <div class="fans">粉丝数: {{ user.followcount }}</div>
+                    <div class="name">{{ user.username }}</div>
+                    <div class="fans">粉丝数: {{ user.followerCount }}</div>
                    <button @click="follow" v-if="!user.is_followed" type="button" class="btn btn-secondary btn-sm">+关注</button>
                    <button @click="unfollow" v-if="user.is_followed" type="button" class="btn btn-secondary btn-sm">取消关注</button>
                 </div>
@@ -19,8 +19,9 @@
 
 <script>
 import { computed } from 'vue';
-
-export default{
+import $ from 'jquery';
+import { useStore } from 'vuex';
+export default {
     name:"UserProfileInfo",
     props:{
         user:{
@@ -31,12 +32,45 @@ export default{
     setup(props,context){
         let fullName=computed(()=>props.user.lastname+' '+props.user.firstname);
 
+        const store=useStore();
 
         const follow=()=>{
-            context.emit("follow");
+            $.ajax({
+                url:"https://app165.acapp.acwing.com.cn/myspace/follow/",
+                type:"POST",
+                data:{
+                    target_id:props.user.id,
+                },
+                headers:{
+                    'Authorization':"Bearer "+store.state.user.access,
+                },
+                success(resp){
+                    if(resp.result==="success"){
+                        context.emit("follow");
+                    }
+                   
+                }
+            });
+            
         };
         const unfollow=()=>{
-            context.emit("unfollow");
+            $.ajax({
+                url:"https://app165.acapp.acwing.com.cn/myspace/follow/",
+                type:"POST",
+                data:{
+                    target_id:props.user.id,
+                },
+                headers:{
+                    'Authorization':"Bearer "+store.state.user.access,
+                },
+                success(resp){
+                    if(resp.result==="success"){
+                        context.emit("unfollow");
+                    }
+                   
+                }
+            });
+            
         }
 
         return{
@@ -61,5 +95,10 @@ img{
 button{
     padding:2px 4px ;
     font-size: 12px;
+}
+.img-fluid{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 </style>

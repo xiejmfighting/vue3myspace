@@ -2,7 +2,7 @@
 <!-- //这个区域放置导航栏，导航栏组件在components/NavBar.vue中 -->
 <NavBar/>
 
-  <router-view/>
+  <router-view :key="$route.fullPath"/>
 </template>
 
 <script>
